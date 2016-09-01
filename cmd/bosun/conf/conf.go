@@ -809,6 +809,19 @@ var defaultFuncs = ttemplate.FuncMap{
 	"pct": func(i interface{}) string {
 		return fmt.Sprintf("%.2f%%", i)
 	},
+	"humanize": func(i expr.Number) string {
+		if (i > 1000000000000) {
+			return fmt.Sprintf("%.1f trillion", i/1000000000000)
+		} else if (i > 1000000000) {
+			return fmt.Sprintf("%.1f billion", i/1000000000)
+		} else if (i > 1000000) {
+			return fmt.Sprintf("%.1f million", i/1000000)
+		} else if (i > 1000) {
+			return fmt.Sprintf("%.1f k", i/1000)
+		} else {
+			return fmt.Sprintf("%.3f", i)
+		}
+	},
 	"replace": strings.Replace,
 	"short": func(v string) string {
 		return strings.SplitN(v, ".", 2)[0]
